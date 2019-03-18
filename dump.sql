@@ -25,7 +25,7 @@ create table question (
     reciever_id int references "user"(id),
     message text,
     "date" timestamp,
-    answered boolean
+    answer text
 );
 
 create table "like" (
@@ -50,10 +50,30 @@ insert into "user"(login, password, name, surname, email, city, gender, dateOfBi
   values ('aina', 'qwerty', 'Aina', 'Ardashirova', 'aina@mail.ru', 'Ufa', 'female', '14/02/1999');
 
 insert into message (sender_id, reciever_id, message, "date")
-  values (1, 5, 'hello!', now());
+  values (1, 2, 'hello!', now());
 insert into message (sender_id, reciever_id, message, "date")
-  values (5, 3, 'how are you!', now());
+  values (2, 3, 'how are you!', now());
 insert into message (sender_id, reciever_id, message, "date")
   values (1, 4, 'Beijing is cool!', now());
 insert into message (sender_id, reciever_id, message, "date")
   values (4, 3, 'I like China!', now());
+
+insert into question (sender_id, reciever_id, message, "date", answer)
+  values (1, 2, 'how are you?', now(), 'Fine, thanks');
+insert into question (sender_id, reciever_id, message, "date")
+  values (3, 4, 'do you like Beijing?', now());
+insert into question (sender_id, reciever_id, message, "date", answer)
+  values (4, 1, 'heeey', now(), 'hi');
+insert into question (sender_id, reciever_id, message, "date")
+  values (2, 3, 'blablabla', now());
+
+insert into "like" (user_id, question_id) values (1,2);
+insert into "like" (user_id, question_id) values (2,1);
+insert into "like" (user_id, question_id) values (3,1);
+insert into "like" (user_id, question_id) values (4,3);
+
+insert into subscriptions (subscriptor_id, subscriber_id) values (1, 2);
+insert into subscriptions (subscriptor_id, subscriber_id) values (2, 1);
+insert into subscriptions (subscriptor_id, subscriber_id) values (1, 3);
+insert into subscriptions (subscriptor_id, subscriber_id) values (1, 4);
+insert into subscriptions (subscriptor_id, subscriber_id) values (4, 2);
