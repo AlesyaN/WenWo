@@ -45,7 +45,7 @@ public class UserDAO implements UserDAOInterface{
             PreparedStatement ps = conn.prepareStatement("insert into \"user\"(login, email, password) values (?, ?, ?)");
             ps.setString(1, login);
             ps.setString(2, email);
-            ps.setString(3, DigestUtils.md5Hex(password));
+            ps.setString(3, password);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
