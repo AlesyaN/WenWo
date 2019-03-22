@@ -1,4 +1,4 @@
-package ru.itis.db;
+package ru.itis.db.orm;
 
 import ru.itis.entities.User;
 
@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ORM implements ORMInterface{
+public class ORM implements ORMInterface {
 
     public User makeUser(ResultSet rs) {
         try {

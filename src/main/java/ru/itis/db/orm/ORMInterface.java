@@ -1,4 +1,4 @@
-package ru.itis.db;
+package ru.itis.db.orm;
 
 import ru.itis.entities.User;
 
