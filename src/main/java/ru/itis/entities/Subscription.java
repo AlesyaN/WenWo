@@ -1,4 +1,4 @@
-package entities;
+package ru.itis.entities;
 
 public class Subscription {
     private int id;
