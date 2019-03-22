@@ -1,5 +1,6 @@
 package ru.itis.db.dao;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import ru.itis.db.ConnectionSingleton;
 import ru.itis.db.orm.ORM;
 import ru.itis.db.orm.ORMInterface;
@@ -43,7 +44,7 @@ public class UserDAO implements UserDAOInterface{
             PreparedStatement ps = conn.prepareStatement("insert into \"user\"(login, email, password) values (?, ?, ?)");
             ps.setString(1, login);
             ps.setString(2, email);
-            ps.setString(3, password);
+            ps.setString(3, DigestUtils.md5Hex(password));
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();

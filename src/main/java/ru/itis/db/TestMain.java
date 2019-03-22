@@ -1,5 +1,6 @@
 package ru.itis.db;
 
+import org.apache.commons.codec.digest.DigestUtils;
 import ru.itis.db.dao.UserDAO;
 import ru.itis.entities.User;
 
@@ -14,8 +15,10 @@ public class TestMain {
 //            System.out.println(u.toString());
 //        }
 
-//        userDAO.addUser("daniil", "dan@mail.ru", "qwerty007");
-//        User user = userDAO.getUserByLogin("daniil");
-//        System.out.println(user.toString());
+//        userDAO.addUser("peter", "peter@mail.ru", "hello");
+        User user = userDAO.getUserByLogin("peter");
+        System.out.println(user.toString());
+
+
     }
 }
