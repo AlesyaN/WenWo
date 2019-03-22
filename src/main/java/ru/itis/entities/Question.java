@@ -1,5 +1,6 @@
 package ru.itis.entities;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Question {
@@ -8,15 +9,14 @@ public class Question {
     private User receiver;
     private String text;
     private Date date;
-    private boolean answered;
+    private String answer;
 
-    public Question(int id, User sender, User receiver, String text, Date date, boolean answered) {
+    public Question(int id, User sender, User receiver, String text, Date date) {
         this.id = id;
         this.sender = sender;
         this.receiver = receiver;
         this.text = text;
         this.date = date;
-        this.answered = answered;
     }
 
     public int getId() {
@@ -59,11 +59,19 @@ public class Question {
         this.date = date;
     }
 
-    public boolean isAnswered() {
-        return answered;
+    public String getAnswer() {
+        return answer;
     }
 
-    public void setAnswered(boolean answered) {
-        this.answered = answered;
+    public void setAnswer(String answer) {
+        this.answer = answer;
+    }
+
+    public String toString(){
+        return id + " " +
+                receiver.getLogin() + " " +
+                sender.getLogin() + " " +
+                text + " " +
+                (new SimpleDateFormat("dd-MM-yyyy")).format(date) + " " + answer;
     }
 }

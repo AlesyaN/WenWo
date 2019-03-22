@@ -1,7 +1,9 @@
 package ru.itis.db;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import ru.itis.db.dao.QuestionDAO;
 import ru.itis.db.dao.UserDAO;
+import ru.itis.entities.Question;
 import ru.itis.entities.User;
 
 public class TestMain {
@@ -16,8 +18,22 @@ public class TestMain {
 //        }
 
 //        userDAO.addUser("peter", "peter@mail.ru", "hello");
-        User user = userDAO.getUserByLogin("peter");
-        System.out.println(user.toString());
+//        User user = userDAO.getUserByLogin("peter");
+//        System.out.println(user.toString());
+        QuestionDAO questionDAO = new QuestionDAO();
+
+//        for (Question question: questionDAO.getUnansweredQuestionsFromSenderToReceiver(userDAO.getUserById(2), userDAO.getUserById(3))) {
+//            System.out.println(question.toString());
+//        }
+
+//        questionDAO.addQuestion(userDAO.getUserById(1), userDAO.getUserById(2), "this is question from java!");
+//        questionDAO.setAnswer(questionDAO.getQuestionById(5), "great!!");
+//        questionDAO.deleteQuestion(questionDAO.getQuestionById(4));
+//        for (Question question : questionDAO.getAllQuestions()) {
+//            System.out.println(question.toString());
+//        }
+
+
 
 
     }
