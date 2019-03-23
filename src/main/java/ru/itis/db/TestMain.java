@@ -6,10 +6,12 @@ import ru.itis.db.dao.UserDAO;
 import ru.itis.entities.Question;
 import ru.itis.entities.User;
 
+import java.util.List;
+
 public class TestMain {
     public static void main(String[] args) {
         UserDAO userDAO = new UserDAO();
-//        User user = userDAO.getUser(1);
+//        User user = userDAO.getUserById(1);
 //        System.out.println(user.getId() + " " + user.getLogin() + " " + user.getPassword() + " " + user.getEmail());
 
 //        List<User> users = userDAO.getAllUsers();
@@ -17,18 +19,18 @@ public class TestMain {
 //            System.out.println(u.toString());
 //        }
 
-//        userDAO.addUser("peter", "peter@mail.ru", "hello");
-//        User user = userDAO.getUserByLogin("peter");
+//        userDAO.addUser("stepan", "stepan@mail.ru", "lepa");
+//        User user = userDAO.getUserByLogin("stepan");
 //        System.out.println(user.toString());
         QuestionDAO questionDAO = new QuestionDAO();
-
-//        for (Question question: questionDAO.getUnansweredQuestionsFromSenderToReceiver(userDAO.getUserById(2), userDAO.getUserById(3))) {
+//        System.out.println(questionDAO.getQuestionById(2).toString());
+//        for (Question question: questionDAO.getUnansweredQuestionsFromSenderToReceiver(userDAO.getUserById(1), userDAO.getUserById(2))) {
 //            System.out.println(question.toString());
 //        }
 
-//        questionDAO.addQuestion(userDAO.getUserById(1), userDAO.getUserById(2), "this is question from java!");
-//        questionDAO.setAnswer(questionDAO.getQuestionById(5), "great!!");
-//        questionDAO.deleteQuestion(questionDAO.getQuestionById(4));
+//        questionDAO.addQuestion(userDAO.getUserById(1), userDAO.getUserById(2), "rowmappers are cool!");
+        questionDAO.setAnswer(questionDAO.getQuestionById(7), "yeah!!");
+//        questionDAO.deleteQuestion(questionDAO.getQuestionById(6));
         for (Question question : questionDAO.getAllQuestions()) {
             System.out.println(question.toString());
         }

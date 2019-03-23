@@ -11,12 +11,13 @@ public class Question {
     private Date date;
     private String answer;
 
-    public Question(int id, User sender, User receiver, String text, Date date) {
+    public Question(int id, User sender, User receiver, String text, Date date, String answer) {
         this.id = id;
         this.sender = sender;
         this.receiver = receiver;
         this.text = text;
         this.date = date;
+        this.answer = answer;
     }
 
     public int getId() {
