@@ -5,7 +5,6 @@ import ru.itis.db.SessionSignleton;
 import ru.itis.db.dao.UserDAO;
 import ru.itis.entities.User;
 
-import java.util.HashMap;
 import java.util.Map;
 
 public class UserService {
@@ -20,7 +19,7 @@ public class UserService {
         if (login != null && loginIsUnique(login)) {
             userDAO.addUser(login, email, DigestUtils.md5Hex(password));
             User new_user = userDAO.getUserByLogin(login);
-            session.put("current_user", new_user);
+            authorize(new_user);
             return new_user;
         } else return null;
     }
@@ -34,11 +33,14 @@ public class UserService {
             User user = userDAO.getUserByLogin(login);
             if (user == null) return null;
             if (DigestUtils.md5Hex(password).equals(user.getPassword())) {
-                session.put("current_user", user);
+                authorize(user);
                 return user;
             } else return null;
         }
         return null;
+    }
+    public void authorize (User user){
+        session.put("current_user", user);
     }
 
     public User getUserByLogin(String login) {
