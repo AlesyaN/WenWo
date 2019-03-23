@@ -29,9 +29,9 @@ public class TestMain {
 //        questionDAO.addQuestion(userDAO.getUserById(1), userDAO.getUserById(2), "this is question from java!");
 //        questionDAO.setAnswer(questionDAO.getQuestionById(5), "great!!");
 //        questionDAO.deleteQuestion(questionDAO.getQuestionById(4));
-//        for (Question question : questionDAO.getAllQuestions()) {
-//            System.out.println(question.toString());
-//        }
+        for (Question question : questionDAO.getAllQuestions()) {
+            System.out.println(question.toString());
+        }
 
 
 

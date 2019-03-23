@@ -1,11 +1,14 @@
 package ru.itis.db;
 
+import org.springframework.jdbc.datasource.DriverManagerDataSource;
+
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class ConnectionSingleton {
     private static Connection connection;
+    private static DriverManagerDataSource dataSource = new DriverManagerDataSource();
 
     public static Connection getConnection() {
         try {
@@ -15,10 +18,15 @@ public class ConnectionSingleton {
         }
         if (connection == null) {
             try {
-                connection = DriverManager.getConnection(
-                        "jdbc:postgresql://localhost:5432/wenwo",
-                        "postgres",
-                        "postgres");
+                dataSource.setUsername("postgres");
+                dataSource.setPassword("postgres");
+                dataSource.setUrl("jdbc:postgresql://localhost:5432/wenwo");
+                dataSource.setDriverClassName("org.postgresql.Driver");
+                connection= dataSource.getConnection();
+//                connection = DriverManager.getConnection(
+//                        "jdbc:postgresql://localhost:5432/wenwo",
+//                        "postgres",
+//                        "postgres");
             } catch (SQLException e) {
                 e.printStackTrace();
             }
