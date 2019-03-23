@@ -1,14 +1,14 @@
 package ru.itis.services;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import ru.itis.db.SessionSignleton;
+import ru.itis.db.SessionSingleton;
 import ru.itis.db.dao.UserDAO;
 import ru.itis.entities.User;
 
 import java.util.Map;
 
 public class UserService {
-    private final Map<String, User> session = SessionSignleton.getSession();
+    private final Map<String, User> session = SessionSingleton.getSession();
     private UserDAO userDAO = new UserDAO();
 
     public User getCurrentUser() {
