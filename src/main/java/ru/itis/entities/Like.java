@@ -34,4 +34,9 @@ public class Like {
     public void setQuestion(Question question) {
         this.question = question;
     }
+
+    @Override
+    public String toString() {
+        return id + " " + user.getLogin() + " " + question.getText();
+    }
 }

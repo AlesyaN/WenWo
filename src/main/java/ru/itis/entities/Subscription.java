@@ -34,4 +34,9 @@ public class Subscription {
     public void setSubscriber(User subscriber) {
         this.subscriber = subscriber;
     }
+
+    @Override
+    public String toString() {
+        return subscriptor.getLogin() + " " + subscriber.getLogin();
+    }
 }
