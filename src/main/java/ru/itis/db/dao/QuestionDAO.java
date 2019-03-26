@@ -10,7 +10,7 @@ import java.util.List;
 
 public class QuestionDAO implements QuestionDAOInterface {
     JdbcTemplate template = new JdbcTemplate(DataSourceSingleton.getDataSource());
-    UserDAO userDAO = new UserDAO();
+    UserDAOInterface userDAO = new UserDAO();
 
     RowMapper<Question> questionRowMapper = (ResultSet rs, int i) -> new Question(rs.getInt("id"),
             userDAO.getUserById(rs.getInt("sender_id")),

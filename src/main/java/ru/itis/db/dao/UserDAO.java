@@ -1,5 +1,6 @@
 package ru.itis.db.dao;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import ru.itis.entities.User;
@@ -18,7 +19,11 @@ public class UserDAO implements UserDAOInterface{
     );
 
     public User getUserById(int id) {
-        return template.queryForObject("select * from \"user\" where id=?", userRowMapper, id);
+        try {
+            return template.queryForObject("select * from \"user\" where id=?", userRowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
     public List<User> getAllUsers() {
@@ -30,7 +35,11 @@ public class UserDAO implements UserDAOInterface{
     }
 
     public User getUserByLogin(String login) {
-        return template.queryForObject("select * from \"user\" where login=?", userRowMapper, login);
+        try {
+            return template.queryForObject("select * from \"user\" where login=?", userRowMapper, login);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
     }
 
 }
