@@ -42,10 +42,13 @@ public class UserService {
     public void authorize (User user){
         session.put("current_user", user);
     }
-
     public User getUserByLogin(String login) {
         if (login != null)
             return userDAO.getUserByLogin(login);
         else return null;
+    }
+    public void logOut(){
+        session.put("current_user", null);
+
     }
 }
