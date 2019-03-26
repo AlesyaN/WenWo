@@ -10,6 +10,7 @@ import java.util.Scanner;
 public class Main {
     public static void main(String[] args) {
         Scanner scanner = new Scanner(System.in);
+        UserService userService = new UserService(); //??
         ProfileHandler profileHandler = new ProfileHandler();
         LoginHandler loginHandler = new LoginHandler();
         RegisterHandler registerHandler = new RegisterHandler();
@@ -36,10 +37,26 @@ public class Main {
                 case "/search":
                     searchHandler.respond();
                     break;
+                case "/edit":
+                    profileHandler.edit();
+                    break;
+                case "/answer":
+                    profileHandler.answer();
+                    break;
+                case "/ask":
+                    profileHandler.ask();
+                    break;
+                case "/delete":
+                    profileHandler.delete();
+                    break;
+                case "/logout":
+                    profileHandler.logOut();
+                    break;
                 default:
                     System.out.println("error");
                     break;
             }
+            if(userService.getCurrentUser()==null) System.out.println("main: choose one of r-register l-login s-search e-exit");
             request = scanner.nextLine();
         }
     }

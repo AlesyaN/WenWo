@@ -11,7 +11,6 @@ public class LoginHandler {
     Scanner sc = new Scanner(System.in);
 
     public void respond() {
-        System.out.println(userService.getCurrentUser());
         if (userService.getCurrentUser() != null) {
             profileHandler.respond(userService.getCurrentUser());
         } else {
@@ -23,9 +22,9 @@ public class LoginHandler {
             if (curr_user != null) {
                 userService.authorize(curr_user);
                 profileHandler.respond(curr_user);
-            } else {
+            } /*else {
                 System.out.println("choose one of r-register l-login s-search e-exit");
-            }
+            }*/
 
         }
 

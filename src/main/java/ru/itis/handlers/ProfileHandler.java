@@ -10,7 +10,6 @@ import java.util.Scanner;
 public class ProfileHandler {
     private QuestionService questionService = new QuestionService();
     private UserService userService = new UserService();
-    Scanner sc = new Scanner(System.in);
 
 
     public void respond(User user) {
@@ -36,45 +35,28 @@ public class ProfileHandler {
 
         if (userService.getCurrentUser() != null) {
             if (userService.getCurrentUser() == user)
-                System.out.println("Choose: \n /edit\n /answer\n /delete\n /logOut\n /search");
-            else System.out.println("Choose:\n /ask\n /logOut\n /search\n /profile");
-        } else System.out.println("choose one of \n/register \n/login \n/search \n/exit");
-
-        String request = sc.nextLine();
-        switch (request) {
-            case "e":
-                edit();
-            case "an":
-                answer();
-            case "as":
-                ask();
-            case "d":
-                delete();
-            case "l":
-                logOut();
-            default:
-                System.out.println("error in profile");
+                System.out.println("Choose: \n /edit\n /answer\n /delete\n /logout\n /search");
+            else System.out.println("Choose:\n /ask\n /logout\n /search\n /profile");
         }
+
+
     }
 
-    private String logOut() {
+    public void logOut() {
         userService.logOut();
-        return null;
     }
 
-    private String delete() {
-        return "";
+    public void delete() {
+        System.out.println();
     }
 
-    private String ask() {
-        return "";
+    public void ask() {
+
     }
 
-    private String answer() {
-        return "";
+    public void answer() {
     }
 
-    private String edit() {
-        return "";
+    public void edit() {
     }
 }

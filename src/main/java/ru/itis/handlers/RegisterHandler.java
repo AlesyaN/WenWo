@@ -10,7 +10,6 @@ public class RegisterHandler {
     private ProfileHandler profileHandler = new ProfileHandler();
     Scanner sc = new Scanner(System.in);
     public void respond(){
-        System.out.println(userService.getCurrentUser());
         if (userService.getCurrentUser() != null) {
             profileHandler.respond(userService.getCurrentUser());
         } else {
@@ -24,9 +23,9 @@ public class RegisterHandler {
             if (new_user != null) {
                 userService.authorize(new_user);
                 profileHandler.respond(userService.getCurrentUser());
-            } else {
+            } /*else {
                 System.out.println("choose one of r-register l-login s-search e-exit");
-            }
+            }*/
         }
     }
 }
