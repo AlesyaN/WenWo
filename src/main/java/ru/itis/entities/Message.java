@@ -17,6 +17,14 @@ public class Message {
         this.date = date;
     }
 
+    public Message(User sender, User receiver, String text) {
+        this.id = id;
+        this.sender = sender;
+        this.receiver = receiver;
+        this.text = text;
+        this.date = date;
+    }
+
     public int getId() {
         return id;
     }

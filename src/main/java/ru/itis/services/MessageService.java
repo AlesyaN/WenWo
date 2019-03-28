@@ -21,8 +21,13 @@ public class MessageService {
         messageDAO.addMessage(message.getSender(), message.getReceiver(), message.getText());
     }
 
-    public void deleteMessage(int id) {
-        messageDAO.deleteMessage(id);
+    public boolean deleteMessage(int id, User sender) {
+        if (messageDAO.getMessageById(id).getSender().getLogin().equals(sender.getLogin())) {
+            messageDAO.deleteMessage(id);
+            return true;
+        } else {
+            return false;
+        }
     }
 
 }

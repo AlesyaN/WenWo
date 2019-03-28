@@ -26,13 +26,13 @@ public class MessageDAO implements MessageDAOInterface {
 
     @Override
     public List<Message> getAllMessages() {
-        return template.query("select * from message", messageRowMapper);
+        return template.query("select * from message ORDER BY DATE", messageRowMapper);
     }
 
     @Override
     public List<Message> getMessagesByUsers(User user1, User user2) {
         return template.query("select * from message where sender_id=? and reciever_id=?" +
-                "or sender_id=? and reciever_id=?", messageRowMapper,
+                "or sender_id=? and reciever_id=? order by date", messageRowMapper,
                 user1.getId(), user2.getId(), user2.getId(), user1.getId());
     }
 
