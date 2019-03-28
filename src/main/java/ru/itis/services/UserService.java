@@ -1,27 +1,29 @@
 package ru.itis.services;
 
 import org.apache.commons.codec.digest.DigestUtils;
-import ru.itis.db.SessionSingleton;
+import ru.itis.db.Session;
 import ru.itis.db.dao.UserDAO;
 import ru.itis.entities.User;
 
-import java.util.Map;
 
 public class UserService {
-    private final Map<String, User> session = SessionSingleton.getSession();
     private UserDAO userDAO = new UserDAO();
 
     public User getCurrentUser() {
-        return session.get("current_user");
+        return Session.getSession().getCurrentUser();
     }
 
     public User register(String login, String email, String password) {
-        if (login != null && loginIsUnique(login)) {
+        if (login != null && loginIsUnique(login) && emailIsUnique(email)) {
             userDAO.addUser(login, email, DigestUtils.md5Hex(password));
             User new_user = userDAO.getUserByLogin(login);
             authorize(new_user);
             return new_user;
         } else return null;
+    }
+
+    private boolean emailIsUnique(String email) {
+        return userDAO.getUserByEmail(email) == null;
     }
 
     private boolean loginIsUnique(String login) {
@@ -40,7 +42,7 @@ public class UserService {
         return null;
     }
     public void authorize (User user){
-        session.put("current_user", user);
+        Session.getSession().setCurrentUser(user);
     }
 
     public User getUserByLogin(String login) {
@@ -49,7 +51,12 @@ public class UserService {
         else return null;
     }
     public void logOut(){
-        session.put("current_user", null);
+        Session.getSession().setCurrentUser(null);
 
+    }
+
+
+    public User getUserById(int id) {
+        return userDAO.getUserById(id);
     }
 }

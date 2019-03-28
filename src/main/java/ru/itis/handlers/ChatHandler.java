@@ -10,26 +10,26 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
-public class ChatHandler {
+public class ChatHandler implements HandlerInterface {
     private User currentUser;
     private User receiver;
 
     MessageService messageService = new MessageService();
     Scanner sc = new Scanner(System.in);
 
-    public ChatHandler(User receiver) {
-        this.receiver = receiver;
-        currentUser = (new UserService()).getCurrentUser();
+    public ChatHandler() {
     }
 
-    public void respond() {
+    public String respond(User receiver) {
+        this.receiver = receiver;
+        currentUser = (new UserService()).getCurrentUser();
         printHeader(receiver.getLogin());
         printMessages();
         printOptions();
-        readLine();
+        return readLine();
     }
 
-    private void readLine() {
+    private String readLine() {
         String line[];
         while (true) {
             System.out.println("-------------------------------");
@@ -42,14 +42,12 @@ public class ChatHandler {
                     delete(Integer.parseInt(line[1]));
                     break;
                 case "/back":
-                    //todo back
-                    break;
+                    return "/profile " + receiver.getId();
                 case "/update":
                     printMessages();
                     break;
                 case "/my":
-                    //todo my
-                    break;
+                    return "/profile " + currentUser.getId();
                 case "/exit":
                     System.exit(1);
                     break;

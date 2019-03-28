@@ -5,18 +5,19 @@ import ru.itis.services.UserService;
 
 import java.util.Scanner;
 
-public class SearchHandler {
+public class SearchHandler implements HandlerInterface{
     Scanner scanner = new Scanner(System.in);
     private UserService userService = new UserService();
     private ProfileHandler profileHandler = new ProfileHandler();
 
-    public void respond() {
+    public String respond() {
         System.out.println("enter your friend username");
         User srch_user = userService.getUserByLogin(scanner.nextLine());
         if (srch_user != null) {
-            profileHandler.respond(srch_user);
+            return "/profile " + srch_user.getId();
         } else {
-            System.out.println("choose one of r-register l-login s-search e-exit");
+            System.out.println("No such user");
+            return "/search";
         }
     }
 }

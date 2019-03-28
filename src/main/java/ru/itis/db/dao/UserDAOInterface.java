@@ -9,4 +9,5 @@ public interface UserDAOInterface {
     List<User> getAllUsers();
     void addUser(String login, String email, String password);
     User getUserByLogin(String login);
+    User getUserByEmail(String email);
 }

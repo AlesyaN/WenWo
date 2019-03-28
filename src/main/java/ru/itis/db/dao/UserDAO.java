@@ -42,5 +42,14 @@ public class UserDAO implements UserDAOInterface{
         }
     }
 
+    @Override
+    public User getUserByEmail(String email) {
+        try {
+            return template.queryForObject("select * from \"user\" where email=?", userRowMapper, email);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+    }
+
 }
 

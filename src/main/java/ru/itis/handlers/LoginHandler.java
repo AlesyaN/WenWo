@@ -5,14 +5,13 @@ import ru.itis.services.UserService;
 
 import java.util.Scanner;
 
-public class LoginHandler {
+public class LoginHandler implements HandlerInterface{
     private UserService userService = new UserService();
-    private ProfileHandler profileHandler= new ProfileHandler();
     Scanner sc = new Scanner(System.in);
 
-    public void respond() {
+    public String respond() {
         if (userService.getCurrentUser() != null) {
-            profileHandler.respond(userService.getCurrentUser());
+            return "/profile " + userService.getCurrentUser().getId();
         } else {
             System.out.println("enter login");
             String login = sc.nextLine();
@@ -21,12 +20,11 @@ public class LoginHandler {
             User curr_user = userService.authenticate(login, pass);
             if (curr_user != null) {
                 userService.authorize(curr_user);
-                profileHandler.respond(curr_user);
-            } /*else {
-                System.out.println("choose one of r-register l-login s-search e-exit");
-            }*/
-
+                return "/profile " + curr_user.getId();
+            } else {
+                return "/login";
+            }
         }
 
-}
+    }
 }
