@@ -21,11 +21,14 @@ public class QuestionService {
     public List<Question> getUserUnansweredQuestions(User user) {
         return questionDAO.getUnansweredQuestionsToReceiver(user);
     }
+    public List<Question> getUnansweredQuestionsFromSenderToReceiver(User sender, User receiver){
+        return questionDAO.getUnansweredQuestionsFromSenderToReceiver(sender, receiver);
+    }
     public List<Question> getQuestionsBySender(User sender, User receiver){
         return questionDAO.getQuestionsFromSenderToReceiver(sender, receiver);
     }
-    public void addQuestion(Question question) {
-        questionDAO.addQuestion(question.getSender(), question.getReceiver(), question.getText());
+    public void addQuestion(User sender, User receiver, String text) {
+        questionDAO.addQuestion(sender, receiver, text);
     }
     public void deleteQuestion(Question question){
         questionDAO.deleteQuestion(question);

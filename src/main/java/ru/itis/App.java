@@ -8,6 +8,7 @@ import ru.itis.services.UserService;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
+import java.util.logging.Handler;
 
 public class App {
     Map<Handlers, HandlerInterface> handlersMap;
@@ -17,7 +18,8 @@ public class App {
         LOGIN,
         PROFILE,
         REGISTER,
-        SEARCH
+        SEARCH,
+        INTRO
     }
 
     Scanner sc;
@@ -30,6 +32,7 @@ public class App {
         handlersMap.put(Handlers.PROFILE, new ProfileHandler());
         handlersMap.put(Handlers.REGISTER, new RegisterHandler());
         handlersMap.put(Handlers.SEARCH, new SearchHandler());
+        handlersMap.put(Handlers.INTRO, new IntroHandler());
 
         sc = new Scanner(System.in);
         userService = new UserService();
@@ -61,6 +64,8 @@ public class App {
     public void go(String line) {
         String [] comm = line.split(" ");
         switch (comm[0]) {
+            case "/intro":
+                go(((IntroHandler)handlersMap.get(Handlers.INTRO)).respond());
             case "/profile":
                 go(((ProfileHandler) handlersMap.get(Handlers.PROFILE)).respond(userService.getUserById(Integer.parseInt(comm[1]))));
             case "/register":
