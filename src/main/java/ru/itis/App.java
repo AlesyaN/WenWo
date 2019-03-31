@@ -19,7 +19,8 @@ public class App {
         PROFILE,
         REGISTER,
         SEARCH,
-        INTRO
+        INTRO,
+        EDIT
     }
 
     Scanner sc;
@@ -33,6 +34,7 @@ public class App {
         handlersMap.put(Handlers.REGISTER, new RegisterHandler());
         handlersMap.put(Handlers.SEARCH, new SearchHandler());
         handlersMap.put(Handlers.INTRO, new IntroHandler());
+        handlersMap.put(Handlers.EDIT, new EditHandler());
 
         sc = new Scanner(System.in);
         userService = new UserService();
@@ -66,6 +68,8 @@ public class App {
         switch (comm[0]) {
             case "/intro":
                 go(((IntroHandler)handlersMap.get(Handlers.INTRO)).respond());
+            case "/edit":
+                go(((EditHandler)handlersMap.get(Handlers.EDIT)).respond());
             case "/profile":
                 go(((ProfileHandler) handlersMap.get(Handlers.PROFILE)).respond(userService.getUserById(Integer.parseInt(comm[1]))));
             case "/register":

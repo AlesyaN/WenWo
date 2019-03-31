@@ -29,8 +29,7 @@ public class ProfileHandler implements HandlerInterface {
             String line = sc.nextLine();
             switch (line) {
                 case "/edit":
-                    edit();
-                    break;
+                    return "/edit";
                 case "/answer":
                     answer();
                 case "/ask":
@@ -38,6 +37,9 @@ public class ProfileHandler implements HandlerInterface {
                     break;
                 case "/deleteQ":
                     deleteQ();
+                    break;
+                case "/deleteA":
+                    deleteA();
                     break;
                 case "/search":
                     return "/search";
@@ -63,7 +65,33 @@ public class ProfileHandler implements HandlerInterface {
         userService.logOut();
         return "/intro";
     }
-
+    public void deleteA() {
+        if(userService.getCurrentUser().getId()==profile_user.getId()){
+            List<Question> answered = questionService.getUserAnsweredQuestions(profile_user);
+            if(answered.size()>0){
+                System.out.println("Choose question:");
+                for (Question q: answered){
+                    System.out.println("Q" + q.getId() + ": " + q.getText()+ " Answer: "+q.getAnswer());
+                }
+                int q_id = Integer.parseInt(sc.nextLine());
+                boolean flag = false;
+                for (Question q : answered) {
+                    if (q.getId() == q_id) flag = true;
+                }
+                if (!flag)
+                    System.out.println("There is no such answer!");
+                else {
+                    System.out.println("Answer <" + questionService.getQuestionById(q_id).getAnswer() + "> is deleted");
+                    questionService.setAnswer(questionService.getQuestionById(q_id), null);
+                }
+            }
+            else System.out.println("You haven't answered on any question yet");
+        }
+        else {
+            System.out.println("You can't delete answers here!");
+        }
+        suggest_options();
+    }
     public void deleteQ() {
         if (userService.getCurrentUser().getId() != profile_user.getId()) {
             List<Question> unanswered = questionService.getUnansweredQuestionsFromSenderToReceiver(
@@ -78,9 +106,9 @@ public class ProfileHandler implements HandlerInterface {
                     if (q.getId() == q_id) flag = true;
                 }
                 if (!flag)
-                    System.out.println("There is no such answer!");
+                    System.out.println("There is no such question!");
                 else {
-                    System.out.println("Question <" + questionService.getQuestionById(q_id).getText() + ">is deleted");
+                    System.out.println("Question <" + questionService.getQuestionById(q_id).getText() + "> is deleted");
                     questionService.deleteQuestion(questionService.getQuestionById(q_id));
                 }
             } else System.out.println("You can't delete any question");
@@ -128,9 +156,6 @@ public class ProfileHandler implements HandlerInterface {
             }
         }
         suggest_options();
-    }
-
-    public void edit() {
     }
 
     private void showInfo() {

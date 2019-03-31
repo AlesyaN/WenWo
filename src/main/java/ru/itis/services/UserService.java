@@ -21,12 +21,15 @@ public class UserService {
             return new_user;
         } else return null;
     }
+    public void update(User user){
+        userDAO.updateUser(user);
+    }
 
-    private boolean emailIsUnique(String email) {
+    public boolean emailIsUnique(String email) {
         return userDAO.getUserByEmail(email) == null;
     }
 
-    private boolean loginIsUnique(String login) {
+    public boolean loginIsUnique(String login) {
         return userDAO.getUserByLogin(login) == null;
     }
 

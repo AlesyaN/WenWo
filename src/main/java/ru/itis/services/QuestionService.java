@@ -24,6 +24,9 @@ public class QuestionService {
     public List<Question> getUnansweredQuestionsFromSenderToReceiver(User sender, User receiver){
         return questionDAO.getUnansweredQuestionsFromSenderToReceiver(sender, receiver);
     }
+    public List<Question> getUserAnsweredQuestions(User receiver) {
+        return questionDAO.getAnsweredQuestionsToReceiver(receiver);
+    }
     public List<Question> getQuestionsBySender(User sender, User receiver){
         return questionDAO.getQuestionsFromSenderToReceiver(sender, receiver);
     }
