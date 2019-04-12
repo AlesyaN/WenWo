@@ -1,5 +1,6 @@
 package ru.itis.db.dao;
 
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import ru.itis.entities.Question;
@@ -20,7 +21,12 @@ public class QuestionDAO implements QuestionDAOInterface {
             rs.getString("answer"));
 
     public Question getQuestionById(int id) {
-        return template.queryForObject("select * from question where id=?", questionRowMapper, id);
+        try {
+            return template.queryForObject("select * from question where id=?", questionRowMapper, id);
+        } catch (EmptyResultDataAccessException e) {
+            return null;
+        }
+
     }
 
     public List<Question> getAllQuestions() {
