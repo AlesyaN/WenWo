@@ -1,13 +1,22 @@
 package ru.itis.handlers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.itis.entities.User;
 import ru.itis.services.UserService;
 
 import java.util.Scanner;
 
-public class SearchHandler implements HandlerInterface{
+@Component
+public class SearchHandler implements HandlerInterface {
     Scanner scanner = new Scanner(System.in);
-    private UserService userService = new UserService();
+
+    private final UserService userService;
+
+    @Autowired
+    public SearchHandler(UserService userService) {
+        this.userService = userService;
+    }
 
     public String respond() {
         System.out.println("enter your friend username");

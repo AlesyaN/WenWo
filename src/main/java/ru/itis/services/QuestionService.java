@@ -1,14 +1,24 @@
 package ru.itis.services;
 
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.itis.db.dao.QuestionDAO;
+import ru.itis.db.dao.QuestionDAOInterface;
 import ru.itis.entities.Question;
 import ru.itis.entities.User;
 
 import java.util.List;
 
+@Component
 public class QuestionService {
-    private QuestionDAO questionDAO = new QuestionDAO();
+
+    private final QuestionDAOInterface questionDAO;
+
+    @Autowired
+    public QuestionService(QuestionDAOInterface questionDAO) {
+        this.questionDAO = questionDAO;
+    }
 
     public Question getQuestionById(int id) {
         return questionDAO.getQuestionById(id);

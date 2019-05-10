@@ -1,14 +1,20 @@
 package ru.itis.services;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.itis.db.dao.LikeDAO;
+import ru.itis.db.dao.LikeDAOInterface;
 import ru.itis.entities.Like;
 import ru.itis.entities.Question;
 import ru.itis.entities.User;
 
 import java.util.List;
 
+@Component
 public class LikeService {
-    private LikeDAO likeDAO = new LikeDAO();
+
+    @Autowired
+    private LikeDAOInterface likeDAO;
 
     public void addLike(Like like) {
         likeDAO.addLike(like.getUser(), like.getQuestion());

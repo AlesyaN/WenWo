@@ -2,6 +2,9 @@ package ru.itis;
 
 
 import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+import ru.itis.config.AppConfig;
 import ru.itis.handlers.*;
 import ru.itis.services.UserService;
 
@@ -11,6 +14,8 @@ import java.util.Scanner;
 import java.util.logging.Handler;
 
 public class App {
+    ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
+
     Map<Handlers, HandlerInterface> handlersMap;
     private static App app;
     enum Handlers {
@@ -28,16 +33,16 @@ public class App {
 
     private App(){
         this.handlersMap = new HashMap<>();
-        handlersMap.put(Handlers.CHAT, new ChatHandler());
-        handlersMap.put(Handlers.LOGIN, new LoginHandler());
-        handlersMap.put(Handlers.PROFILE, new ProfileHandler());
-        handlersMap.put(Handlers.REGISTER, new RegisterHandler());
-        handlersMap.put(Handlers.SEARCH, new SearchHandler());
-        handlersMap.put(Handlers.INTRO, new IntroHandler());
-        handlersMap.put(Handlers.EDIT, new EditHandler());
+        handlersMap.put(Handlers.CHAT, context.getBean(ChatHandler.class));
+        handlersMap.put(Handlers.LOGIN, context.getBean(LoginHandler.class));
+        handlersMap.put(Handlers.PROFILE, context.getBean(ProfileHandler.class));
+        handlersMap.put(Handlers.REGISTER, context.getBean(RegisterHandler.class));
+        handlersMap.put(Handlers.SEARCH, context.getBean(SearchHandler.class));
+        handlersMap.put(Handlers.INTRO, context.getBean(IntroHandler.class));
+        handlersMap.put(Handlers.EDIT, context.getBean(EditHandler.class));
 
         sc = new Scanner(System.in);
-        userService = new UserService();
+        userService = context.getBean(UserService.class);
     }
 
     public static App getApp() {

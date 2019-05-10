@@ -1,5 +1,7 @@
 package ru.itis.handlers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.itis.db.Session;
 import ru.itis.entities.Question;
 import ru.itis.entities.User;
@@ -9,11 +11,19 @@ import ru.itis.services.UserService;
 import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class ProfileHandler implements HandlerInterface {
     private User profile_user;
-    private QuestionService questionService = new QuestionService();
-    private UserService userService = new UserService();
+
+    private final UserService userService;
+    private final QuestionService questionService;
     Scanner sc = new Scanner(System.in);
+
+    @Autowired
+    public ProfileHandler(UserService userService, QuestionService questionService) {
+        this.userService = userService;
+        this.questionService = questionService;
+    }
 
     public String respond(User user) {
         profile_user = user;
@@ -65,13 +75,14 @@ public class ProfileHandler implements HandlerInterface {
         userService.logOut();
         return "/intro";
     }
+
     public void deleteA() {
-        if(userService.getCurrentUser().getId()==profile_user.getId()){
+        if (userService.getCurrentUser().getId() == profile_user.getId()) {
             List<Question> answered = questionService.getUserAnsweredQuestions(profile_user);
-            if(answered.size()>0){
+            if (answered.size() > 0) {
                 System.out.println("Choose question:");
-                for (Question q: answered){
-                    System.out.println("Q" + q.getId() + ": " + q.getText()+ " Answer: "+q.getAnswer());
+                for (Question q : answered) {
+                    System.out.println("Q" + q.getId() + ": " + q.getText() + " Answer: " + q.getAnswer());
                 }
                 int q_id = Integer.parseInt(sc.nextLine());
                 boolean flag = false;
@@ -84,14 +95,14 @@ public class ProfileHandler implements HandlerInterface {
                     System.out.println("Answer <" + questionService.getQuestionById(q_id).getAnswer() + "> is deleted");
                     questionService.setAnswer(questionService.getQuestionById(q_id), null);
                 }
-            }
-            else System.out.println("You haven't answered on any question yet");
-        }
-        else {
+            } else System.out.println("You haven't answered on any question yet");
+        } else {
             System.out.println("You can't delete answers here!");
         }
+        showInfo();
         suggest_options();
     }
+
     public void deleteQ() {
         if (userService.getCurrentUser().getId() != profile_user.getId()) {
             List<Question> unanswered = questionService.getUnansweredQuestionsFromSenderToReceiver(
@@ -124,6 +135,7 @@ public class ProfileHandler implements HandlerInterface {
                 } else System.out.println("There is no such question!");
             }
         }
+        showInfo();
         suggest_options();
     }
 
@@ -136,6 +148,7 @@ public class ProfileHandler implements HandlerInterface {
             questionService.addQuestion(userService.getCurrentUser(), profile_user, text);
             System.out.println("question added, receiver will answer soon:)");
         }
+        showInfo();
         suggest_options();
     }
 
@@ -143,16 +156,20 @@ public class ProfileHandler implements HandlerInterface {
         if (userService.getCurrentUser().getId() != profile_user.getId()) {
             System.out.println("it's not your profile!");
         } else {
-            System.out.println("Enter number of question you want to answer");
-            int q_id = Integer.parseInt(sc.nextLine());
-            if (questionService.getQuestionById(q_id) == null)
-                System.out.println("There is no such answer!");
+            if (questionService.getAllUserQuestions(profile_user).size()==0)
+                System.out.println("You don't have questions yet");
             else {
-                System.out.println("This question: " + questionService.getQuestionById(q_id).getText());
-                System.out.println("Enter your answer:");
-                String text = sc.nextLine();
-                questionService.setAnswer(questionService.getQuestionById(q_id), text);
-                System.out.println("answer added");
+                System.out.println("Enter number of question you want to answer");
+                int q_id = Integer.parseInt(sc.nextLine());
+                if (questionService.getQuestionById(q_id) == null)
+                    System.out.println("There is no such answer!");
+                else {
+                    System.out.println("This question: " + questionService.getQuestionById(q_id).getText());
+                    System.out.println("Enter your answer:");
+                    String text = sc.nextLine();
+                    questionService.setAnswer(questionService.getQuestionById(q_id), text);
+                    System.out.println("answer added");
+                }
             }
         }
         suggest_options();

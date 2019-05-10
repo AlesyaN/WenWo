@@ -1,13 +1,20 @@
 package ru.itis.services;
 
 import org.apache.commons.codec.digest.DigestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.itis.db.Session;
-import ru.itis.db.dao.UserDAO;
+import ru.itis.db.dao.UserDAOInterface;
 import ru.itis.entities.User;
 
-
+@Component
 public class UserService {
-    private UserDAO userDAO = new UserDAO();
+    private final UserDAOInterface userDAO;
+
+    @Autowired
+    public UserService(UserDAOInterface userDAO) {
+        this.userDAO = userDAO;
+    }
 
     public User getCurrentUser() {
         return Session.getSession().getCurrentUser();

@@ -10,4 +10,6 @@ public interface UserDAOInterface {
     void addUser(String login, String email, String password);
     User getUserByLogin(String login);
     User getUserByEmail(String email);
+
+    void updateUser(User user);
 }

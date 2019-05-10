@@ -1,5 +1,7 @@
 package ru.itis.handlers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import ru.itis.entities.Message;
 import ru.itis.entities.User;
 import ru.itis.services.MessageService;
@@ -10,19 +12,25 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+@Component
 public class ChatHandler implements HandlerInterface {
     private User currentUser;
     private User receiver;
 
-    MessageService messageService = new MessageService();
+    private final UserService userService;
+
+    private final MessageService messageService;
     Scanner sc = new Scanner(System.in);
 
-    public ChatHandler() {
+    @Autowired
+    public ChatHandler(UserService userService, MessageService messageService) {
+        this.userService = userService;
+        this.messageService = messageService;
     }
 
     public String respond(User receiver) {
         this.receiver = receiver;
-        currentUser = (new UserService()).getCurrentUser();
+        currentUser = userService.getCurrentUser();
         printHeader(receiver.getLogin());
         printMessages();
         printOptions();
